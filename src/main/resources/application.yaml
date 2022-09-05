@@ -81,3 +81,10 @@ config:
   success-threshold-check:
     enable: false
     success-rate: 95 # in percentage
+
+template:
+  types:
+    - id: "PROGRAM"
+      metadata: "cycle,program_shortcode"
+    - id: "MOJALOOP"
+      metadata: "payer_identifier_type,payer_identifier,payee_identifier_type,payee_identifier"

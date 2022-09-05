@@ -41,7 +41,7 @@ public abstract class BaseWorker {
     @Autowired
     protected WorkerConfig workerConfig;
 
-    @PostConstruct
+    //@PostConstruct
     public abstract void setup();
 
     public void newWorker(Worker worker, JobHandler handler) {
