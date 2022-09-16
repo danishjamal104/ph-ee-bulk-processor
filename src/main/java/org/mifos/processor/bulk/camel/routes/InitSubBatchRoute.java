@@ -1,7 +1,6 @@
 package org.mifos.processor.bulk.camel.routes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.mifos.processor.bulk.Utils;
+import org.mifos.processor.bulk.utility.Utils;
 import org.mifos.processor.bulk.schema.Transaction;
 import org.mifos.processor.bulk.zeebe.BpmnConfig;
 import org.mifos.processor.bulk.zeebe.ZeebeProcessStarter;
@@ -48,7 +47,7 @@ public class InitSubBatchRoute extends BaseRouteBuilder {
                 .process(exchange -> {
                     String tenantName = exchange.getProperty(TENANT_NAME, String.class);
                     List<Transaction> transactionList = exchange.getProperty(TRANSACTION_LIST, List.class);
-                    if (transactionList.get(0).getPayment_mode().equalsIgnoreCase("slcb")) {
+                    if (transactionList.get(0).getPaymentMode().equalsIgnoreCase("slcb")) {
                         Map<String, Object> variables = new HashMap<>();
                         variables.put(BATCH_ID, exchange.getProperty(BATCH_ID));
                         variables.put(SUB_BATCH_ID, UUID.randomUUID().toString());
@@ -59,6 +58,9 @@ public class InitSubBatchRoute extends BaseRouteBuilder {
                         variables.put(ONGOING_AMOUNT, exchange.getProperty(ONGOING_AMOUNT));
                         variables.put(FAILED_AMOUNT, exchange.getProperty(FAILED_AMOUNT));
                         variables.put(COMPLETED_AMOUNT, exchange.getProperty(COMPLETED_AMOUNT));
+                        variables.put(RESULT_FILE, String.format("Result_%s",
+                                exchange.getProperty(SERVER_FILE_NAME)));
+                        variables.put(PAYMENT_MODE, "slcb");
 
                         zeebeProcessStarter.startZeebeWorkflow(
                                 Utils.getTenantSpecificWorkflowId(bpmnConfig.slcbBpmn, tenantName), variables);

@@ -8,6 +8,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.mifos.processor.bulk.camel.routes.RouteId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -41,7 +43,10 @@ public abstract class BaseWorker {
     @Autowired
     protected WorkerConfig workerConfig;
 
-    //@PostConstruct
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @PostConstruct
     public abstract void setup();
 
     public void newWorker(Worker worker, JobHandler handler) {
