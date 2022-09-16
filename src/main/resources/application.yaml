@@ -95,4 +95,4 @@ template:
     - id: "PROGRAM"
       metadata: "cycle,program_shortcode"
     - id: "MOJALOOP"
-      metadata: "payer_identifier_type,payer_identifier,payee_identifier_type,payee_identifier"
+      metadata: "payer_identifier_type,payer_identifier"

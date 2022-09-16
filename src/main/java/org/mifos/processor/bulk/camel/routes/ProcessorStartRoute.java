@@ -4,6 +4,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.json.JSONObject;
 import org.mifos.processor.bulk.file.FileTransferService;
+import org.mifos.processor.bulk.utility.ErrorResponse;
 import org.mifos.processor.bulk.utility.Utils;
 import org.mifos.processor.bulk.zeebe.ZeebeProcessStarter;
 import org.mifos.processor.bulk.zeebe.worker.WorkerConfig;
@@ -160,18 +161,23 @@ public class ProcessorStartRoute extends BaseRouteBuilder {
                     try {
                         String txnId = zeebeProcessStarter.startZeebeWorkflow(workflowId, "", variables);
                         if (txnId == null || txnId.isEmpty()) {
-                            response.put("errorCode", 500);
-                            response.put("errorDescription", "Unable to start zeebe workflow");
-                            response.put("developerMessage", "Issue in starting the zeebe workflow, check the zeebe configuration");
+                            response = new ErrorResponse.Builder()
+                                    .setErrorCode(500)
+                                    .setErrorDescription("Unable to start zeebe workflow")
+                                    .setDeveloperMessage("Issue in starting the zeebe workflow, " +
+                                            "check the zeebe configuration")
+                                    .build().getResponse();
                         } else {
                             response.put("batch_id", batchId);
                             response.put("request_id", requestId);
                             response.put("status", "queued");
                         }
                     } catch (Exception e) {
-                        response.put("errorCode", 500);
-                        response.put("errorDescription", "Unable to start zeebe workflow");
-                        response.put("developerMessage", e.getLocalizedMessage());
+                        response = new ErrorResponse.Builder()
+                                .setErrorCode(500)
+                                .setErrorDescription("Unable to start zeebe workflow")
+                                .setDeveloperMessage(e.getLocalizedMessage())
+                                .build().getResponse();
                     }
 
                     exchange.getIn().setBody(response.toString());

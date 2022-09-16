@@ -16,9 +16,6 @@ import static org.mifos.processor.bulk.zeebe.ZeebeVariables.*;
 @Component
 public class FileProcessingRoute extends BaseRouteBuilder {
 
-    @Autowired
-    private CsvMapper csvMapper;
-
     @Override
     public void configure() {
 

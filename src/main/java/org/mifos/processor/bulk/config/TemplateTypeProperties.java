@@ -27,7 +27,7 @@ public class TemplateTypeProperties {
         return getTypes().stream()
                 .filter(p -> p.getId().equals(templateId))
                 .findFirst()
-                .orElse(new TemplateType("UNKNOWN"));
+                .orElse(new TemplateType(""));
     }
 
 }

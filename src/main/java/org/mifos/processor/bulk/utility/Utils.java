@@ -66,4 +66,8 @@ public class Utils {
         return String.format("PT%sS", timer);
     }
 
+    public static String strip(String str) {
+        return str.replaceAll("^\"|\"$", "");
+    }
+
 }

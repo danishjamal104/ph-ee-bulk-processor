@@ -1,8 +1,11 @@
 package org.mifos.processor.bulk.schema;
 
 import com.fasterxml.jackson.annotation.*;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "id", "request_id", "payment_mode", "account_number", "payer_identifier_type", "payer_identifier", "payee_identifier_type", "payee_identifier", "amount", "currency", "note", "program_shortcode", "cycle" })
 public class Transaction implements CsvSchema {
@@ -17,6 +20,7 @@ public class Transaction implements CsvSchema {
     private String paymentMode;
 
     @JsonProperty("account_number")
+    @JsonIgnore
     private String accountNumber;
 
     @JsonProperty("amount")
@@ -48,70 +52,9 @@ public class Transaction implements CsvSchema {
     @JsonIgnore
     private String batchId;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-    }
-
-    public String getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(String paymentMode) {
-        this.paymentMode = paymentMode;
-    }
-
+    @JsonIgnore
     public String getAccountNumber() {
         return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    @JsonIgnore
-    public String getBatchId() {
-        return batchId;
-    }
-
-    @JsonIgnore
-    public void setBatchId(String batchId) {
-        this.batchId = batchId;
     }
 
     @Override
@@ -126,54 +69,6 @@ public class Transaction implements CsvSchema {
                 ", note='" + note + '\'' +
                 ", batchId='" + batchId + '\'' +
                 '}';
-    }
-
-    public String getPayerIdentifierType() {
-        return payerIdentifierType;
-    }
-
-    public void setPayerIdentifierType(String payerIdentifierType) {
-        this.payerIdentifierType = payerIdentifierType;
-    }
-
-    public String getPayerIdentifier() {
-        return payerIdentifier;
-    }
-
-    public void setPayerIdentifier(String payerIdentifier) {
-        this.payerIdentifier = payerIdentifier;
-    }
-
-    public String getPayeeIdentifierType() {
-        return payeeIdentifierType;
-    }
-
-    public void setPayeeIdentifierType(String payeeIdentifierType) {
-        this.payeeIdentifierType = payeeIdentifierType;
-    }
-
-    public String getPayeeIdentifier() {
-        return payeeIdentifier;
-    }
-
-    public void setPayeeIdentifier(String payeeIdentifier) {
-        this.payeeIdentifier = payeeIdentifier;
-    }
-
-    public String getProgramShortCode() {
-        return programShortCode;
-    }
-
-    public void setProgramShortCode(String programShortCode) {
-        this.programShortCode = programShortCode;
-    }
-
-    public String getCycle() {
-        return cycle;
-    }
-
-    public void setCycle(String cycle) {
-        this.cycle = cycle;
     }
 
     @JsonIgnore

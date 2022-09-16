@@ -1,11 +1,13 @@
 package org.mifos.processor.bulk.camel.routes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import io.camunda.zeebe.client.ZeebeClient;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.RouteDefinition;
 import org.mifos.processor.bulk.OperationsAppConfig;
+import org.mifos.processor.bulk.config.TemplateTypeProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,12 @@ public abstract class BaseRouteBuilder extends RouteBuilder {
 
     @Autowired
     ZeebeClient zeebeClient;
+
+    @Autowired
+    CsvMapper csvMapper;
+
+    @Autowired
+    TemplateTypeProperties templateTypeProperties;
 
     @Value("#{'${tenants}'.split(',')}")
     protected List<String> tenants;
