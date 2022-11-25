@@ -136,7 +136,6 @@ public class InitSubBatchRoute extends BaseRouteBuilder {
                 .to("direct:update-result-file")
                 .to("direct:upload-file");
 
-
         from("direct:external-api-call")
                 .id("direct:external-api-call")
                 .log("Starting route direct:external-api-call")
